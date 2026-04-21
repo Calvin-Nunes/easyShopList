@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">EasyShopList</string>
+
+    <!-- Navegação -->
+    <string name="nav_lists">Listas</string>
+    <string name="nav_new_list">Nova Lista</string>
+    <string name="nav_products">Produtos</string>
+
+    <!-- Ações gerais -->
+    <string name="action_back">Voltar</string>
+    <string name="action_save">Salvar</string>
+    <string name="action_cancel">Cancelar</string>
+    <string name="action_delete">Excluir</string>
+    <string name="action_edit">Editar</string>
+    <string name="action_add">Adicionar</string>
+    <string name="action_create">Criar</string>
+    <string name="action_close">Fechar</string>
+    <string name="action_remove">Remover</string>
+    <string name="action_use_list">Usar Lista</string>
+    <string name="action_conclude_purchase">Concluir Compra</string>
+    <string name="action_manage_sectors">Gerenciar Setores</string>
+    <string name="action_new_item">Novo Item</string>
+    <string name="action_add_sector">Adicionar setor</string>
+    <string name="action_move_up">Mover para cima</string>
+    <string name="action_move_down">Mover para baixo</string>
+    <string name="action_edit_name">Editar nome</string>
+
+    <!-- Rótulos de campo -->
+    <string name="label_item_name">Nome do item</string>
+    <string name="label_name">Nome</string>
+    <string name="label_name_required">Nome *</string>
+    <string name="label_quantity_short">Qtd</string>
+    <string name="label_measure">Medida</string>
+    <string name="label_price">Preço</string>
+    <string name="label_base_price">Preço base</string>
+    <string name="label_total">Total</string>
+    <string name="label_sector">Setor</string>
+    <string name="label_none">Nenhum</string>
+    <string name="label_sector_general">Geral</string>
+    <string name="label_finalized">Finalizada</string>
+    <string name="label_new_sector">Novo setor</string>
+    <string name="label_quantity_unit">Quantidade (%1$s)</string>
+
+    <!-- Títulos de tela -->
+    <string name="screen_lists_title">Suas Listas</string>
+    <string name="screen_list_detail_title">Lista de Compras</string>
+    <string name="screen_new_list_title">Nova Lista</string>
+
+    <!-- Usar lista -->
+    <string name="label_total_marked">Comprado</string>
+
+    <!-- Títulos de dialog -->
+    <string name="dialog_list_name_title">Nome da lista</string>
+    <string name="dialog_edit_quantity_title">Editar quantidade</string>
+    <string name="dialog_edit_item_title">Editar item</string>
+    <string name="dialog_delete_item_title">Excluir item</string>
+    <string name="dialog_new_item_title">Novo Item</string>
+    <string name="dialog_manage_sectors_title">Gerenciar Setores</string>
+
+    <!-- Dicas / placeholders -->
+    <string name="hint_list_name">Nome (vazio = usar a data)</string>
+
+    <!-- Seções -->
+    <string name="section_add_item">Adicionar item</string>
+
+    <!-- Mensagens -->
+    <string name="msg_purchase_completed">Compra finalizada!</string>
+    <string name="msg_no_items_added">Nenhum item adicionado ainda.</string>
+    <string name="msg_no_lists">Nenhuma lista criada\nClique em "Nova Lista" para começar</string>
+    <string name="msg_no_items_in_bank">Nenhum item cadastrado\nAdicione itens criando listas ou clique em "Novo Item"</string>
+    <string name="msg_no_sectors">Nenhum setor cadastrado</string>
+    <string name="msg_delete_item_confirm">Tem certeza que deseja excluir "%1$s"? Ele será removido de todas as listas em que estiver.</string>
+
+    <!-- Plurais -->
+    <plurals name="items_count">
+        <item quantity="one">%d item</item>
+        <item quantity="other">%d itens</item>
+    </plurals>
+</resources>
