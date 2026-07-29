@@ -25,6 +25,7 @@
     <string name="action_move_up">Mover para cima</string>
     <string name="action_move_down">Mover para baixo</string>
     <string name="action_edit_name">Editar nome</string>
+    <string name="action_export">Exportar</string>
 
     <!-- Rótulos de campo -->
     <string name="label_item_name">Nome do item</string>

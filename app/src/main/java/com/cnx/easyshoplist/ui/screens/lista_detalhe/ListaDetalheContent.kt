@@ -66,12 +66,24 @@ fun ListaDetalheContent(
     }
     val lista = uiState.lista
     val totalItens = uiState.itensPorSetor.values.flatten().size
+    val valorTotal = uiState.itensPorSetor.values.flatten().sumOf { it.listaItem.precoTotal }
     val finalizada = lista?.finalizada == true
     // --- Layout principal ---
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(R.string.screen_list_detail_title)) },
+                title = {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(stringResource(R.string.screen_list_detail_title))
+                        if (valorTotal > 0) {
+                            Text(
+                                text = " · ${currencyFmt.format(valorTotal)}",
+                                style = MaterialTheme.typography.titleMedium,
+                                color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.8f)
+                            )
+                        }
+                    }
+                },
                 navigationIcon = {
                     IconButton(onClick = onNavigateUp) {
                         Icon(painterResource(R.drawable.ic_arrow_back), contentDescription = stringResource(R.string.action_back))

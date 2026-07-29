@@ -25,6 +25,7 @@
     <string name="action_move_up">Move up</string>
     <string name="action_move_down">Move down</string>
     <string name="action_edit_name">Edit name</string>
+    <string name="action_export">Export</string>
 
     <!-- Field labels -->
     <string name="label_item_name">Item name</string>

@@ -20,7 +20,8 @@ import java.util.*
 fun UsarListaContent(
     uiState: UsarListaUiState,
     onToggleMarcado: (Long) -> Unit,
-    onConcluir: () -> Unit
+    onConcluir: () -> Unit,
+    onExportar: (String) -> Unit
 ) {
     val currencyFmt = remember {
         NumberFormat.getNumberInstance(Locale.forLanguageTag("pt-BR")).apply {
@@ -63,11 +64,45 @@ fun UsarListaContent(
                         )
                     }
                     Spacer(Modifier.height(8.dp))
-                    Button(
-                        onClick = onConcluir,
-                        modifier = Modifier.fillMaxWidth()
+                    val labelSetorGeral = stringResource(R.string.label_sector_general)
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
-                        Text(stringResource(R.string.action_conclude_purchase))
+                        OutlinedButton(
+                            onClick = {
+                                val texto = buildString {
+                                    uiState.itensPorSetor.forEach { (setor, itensDoSetor) ->
+                                        val nomeSetor = setor?.nome ?: labelSetorGeral
+                                        append("*$nomeSetor*\n")
+                                        itensDoSetor.forEach { display ->
+                                            val qtdStr = display.listaItem.quantidade.let {
+                                                if (it == it.toLong().toFloat()) it.toLong().toString() else it.toString()
+                                            }
+                                            val medidaStr = when (display.item.tipoMedida) {
+                                                com.cnx.easyshoplist.data.enums.TipoMedida.KG -> "kg"
+                                                com.cnx.easyshoplist.data.enums.TipoMedida.GRAMA -> "Gr."
+                                                com.cnx.easyshoplist.data.enums.TipoMedida.LITRO -> "Litro"
+                                                com.cnx.easyshoplist.data.enums.TipoMedida.DUZIA -> "Dúzia"
+                                                else -> ""
+                                            }
+                                            append("* $qtdStr$medidaStr ${display.item.nome} - ${currencyFmt.format(display.listaItem.precoTotal)}\n")
+                                        }
+                                        append("\n")
+                                    }
+                                }.trim()
+                                onExportar(texto)
+                            },
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Text(stringResource(R.string.action_export))
+                        }
+                        Button(
+                            onClick = onConcluir,
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Text(stringResource(R.string.action_conclude_purchase))
+                        }
                     }
                 }
             }
@@ -79,6 +114,7 @@ fun UsarListaContent(
             }
             return@Scaffold
         }
+        val valorTotal = uiState.itensPorSetor.values.flatten().sumOf { it.listaItem.precoTotal }
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
@@ -87,11 +123,27 @@ fun UsarListaContent(
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             item {
-                Text(
-                    text = uiState.lista?.nome ?: stringResource(R.string.screen_list_detail_title),
-                    style = MaterialTheme.typography.headlineSmall,
-                    fontWeight = FontWeight.Bold
-                )
+                val nomeLista = uiState.lista?.nome ?: stringResource(R.string.screen_list_detail_title)
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = nomeLista,
+                        style = MaterialTheme.typography.headlineSmall,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.weight(1f)
+                    )
+                    if (valorTotal > 0) {
+                        Text(
+                            text = currencyFmt.format(valorTotal),
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                    }
+                }
                 HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
             }
             uiState.itensPorSetor.forEach { (setor, itens) ->

@@ -17,50 +17,62 @@ import androidx.core.view.WindowCompat
  * Branco em todas as superfícies sobre cores vivas (primary/secondary/tertiary).
  */
 private val LightColorScheme = lightColorScheme(
-    primary              = TealPrimary,       // Teal 700
+    primary              = TealPrimary,       // Teal 300
     onPrimary            = AppWhite,
     primaryContainer     = TealLight,         // Teal 100
-    onPrimaryContainer   = TealDark,          // Teal 900
-    secondary            = SetorBlue,         // Blue 800 — realces e setores
+    onPrimaryContainer   = TealDark,          // Teal 700
+    secondary            = SetorBlue,         // Blue 300 — realces e setores
     onSecondary          = AppWhite,
-    secondaryContainer   = SetorBlueContainer,// Blue 100
+    secondaryContainer   = SetorBlueContainer,// Blue 50
     onSecondaryContainer = TealDark,
     tertiary             = TealDark,
     onTertiary           = AppWhite,
-    background           = AppBackground,     // Teal 50 — fundo suave do app
-    onBackground         = AppOnBackground,   // Quase preto — fonte padrão
-    surface              = AppBackground,     // Mesma cor para Surface, Card, etc.
+    background           = AppBackground,     // Fundo claro
+    onBackground         = AppOnBackground,   // Quase preto
+    surface              = AppWhite,          // Surface branco puro para Cards
     onSurface            = AppOnBackground,
     surfaceVariant       = TealLight,
     onSurfaceVariant     = TealDark,
 )
 
 /**
- * Esquema escuro: variante Teal mais clara para modo noturno.
+ * Esquema escuro: (Opcional) Poderia ser diferente, mas para este app
+ * manteremos tons claros mesmo que o sistema peça dark, conforme pedido do usuário.
  */
 private val DarkColorScheme = darkColorScheme(
-    primary              = TealPrimaryDark,   // Teal 400
-    onPrimary            = TealDark,          // Teal 900
-    primaryContainer     = TealDark,
-    onPrimaryContainer   = TealLight,
-    secondary            = SetorBlueContainer,// Blue 100
-    onSecondary          = TealDark,
+    primary              = TealPrimary,
+    onPrimary            = AppWhite,
+    primaryContainer     = TealLight,
+    onPrimaryContainer   = TealDark,
+    secondary            = SetorBlue,
+    onSecondary          = AppWhite,
+    secondaryContainer   = SetorBlueContainer,
+    onSecondaryContainer = TealDark,
+    tertiary             = TealDark,
+    onTertiary           = AppWhite,
+    background           = AppBackground,
+    onBackground         = AppOnBackground,
+    surface              = AppWhite,
+    onSurface            = AppOnBackground,
+    surfaceVariant       = TealLight,
+    onSurfaceVariant     = TealDark,
 )
 
 @Composable
 fun EasyShopListTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    darkTheme: Boolean = isSystemInDarkTheme(), // Mantido para assinatura, mas ignorado
     content: @Composable () -> Unit
 ) {
-    val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
+    // Força sempre o esquema claro, conforme pedido do usuário
+    val colorScheme = LightColorScheme
 
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            @Suppress("DEPRECATION")
             window.statusBarColor = colorScheme.primary.toArgb()
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
+            // Força ícones da barra de status a serem escuros (pois o fundo é claro)
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = true
         }
     }
 
